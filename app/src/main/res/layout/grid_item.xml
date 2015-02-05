@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="100dp"
+    android:layout_height="100dp">
+
+    <TextView
+        android:id="@+id/form_fieldlabel"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:maxLines="2"
+        android:text="label" />
+
+    <ImageView
+        android:id="@+id/form_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="10dp"
+        android:src="@drawable/ic_launcher" />
+</RelativeLayout>
