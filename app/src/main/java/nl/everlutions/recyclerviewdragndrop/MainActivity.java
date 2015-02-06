@@ -36,7 +36,7 @@ public class MainActivity extends ActionBarActivity implements MyClickListener {
         mGridLayoutManager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
 
         mData = new ArrayList<MyObject>();
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 60; i++) {
             mData.add(new MyObject("pos " + i, i % 2 == 1 ? Color.YELLOW : Color.WHITE));
         }
 
@@ -54,11 +54,19 @@ public class MainActivity extends ActionBarActivity implements MyClickListener {
             if (pos == mDraggedViewPos) {
                 return false;
             }
+
+            /**
+             * For some kind of reason when you animate from pos
+             * 0 to the next row it moves the whole data set. So this is still a bug
+             *
+             * Also when you are at the top or bottom holding the draggable view
+             * the list doesn't scroll would be nice though
+             */
             switch (event.getAction()) {
                 case DragEvent.ACTION_DRAG_ENTERED:
                     Log.e(TAG, "ENTERED: " + pos);
                     if (pos > mDraggedViewPos) {
-                        Collections.rotate(mData.subList(mDraggedViewPos, mData.size()), -1);
+                        Collections.rotate(mData.subList(mDraggedViewPos, pos+1), -1);
                     } else {
                         Collections.rotate(mData.subList(0, mDraggedViewPos+1), 1);
                     }
@@ -81,7 +89,8 @@ public class MainActivity extends ActionBarActivity implements MyClickListener {
         View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(v);
         v.setTag(pos);
         v.startDrag(data, shadowBuilder, v, 0);
-        v.setVisibility(View.INVISIBLE);
+//        v.setVisibility(View.INVISIBLE);
+//        mAdapter.notifyItemMoved(0, 3);
     }
 
     public class MyObject {
